@@ -6,8 +6,8 @@ import 'package:notes_firebase_ddd/domain/auth/value_objects.dart';
 @immutable
 abstract class IAuthFacade {
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword(
-      {required EmailAddress emailAddress, Password password});
+      {required EmailAddress emailAddress, required Password password});
   Future<Either<AuthFailure, Unit>> signInWithEmailAndPassword(
-      {required EmailAddress emailAddress, Password password});
+      {required EmailAddress emailAddress, required Password password});
   Future<Either<AuthFailure, Unit>> signInWithGoogleAccount();
 }
