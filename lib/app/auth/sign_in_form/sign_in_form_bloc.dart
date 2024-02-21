@@ -1,9 +1,12 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:notes_firebase_ddd/domain/auth/auth_failure.dart';
 import 'package:notes_firebase_ddd/domain/auth/i_auth_facade.dart';
 import 'package:notes_firebase_ddd/domain/auth/value_objects.dart';
+import 'package:injectable/injectable.dart';
 
 part 'sign_in_form_event.dart';
 part 'sign_in_form_state.dart';
@@ -14,10 +17,10 @@ typedef ForwardedCall = Future<Either<AuthFailure, Unit>> Function({
   required Password password,
 });
 
+@injectable
 class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
   final IAuthFacade _iAuthFacade;
 
-  @override
   SignInFormState get initialState => SignInFormState.initial();
 
   SignInFormBloc(this._iAuthFacade)
@@ -38,11 +41,13 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
     });
     on<RegisterWithEmailAndPasswordPressed>((event, emit) async {
       _performActionOnAuthFacadeWithEmailAndPassword(
-          _iAuthFacade.registerWithEmailAndPassword);
+        _iAuthFacade.registerWithEmailAndPassword,
+      );
     });
     on<SignInWithEmailAndPasswordPressed>((event, emit) async {
       _performActionOnAuthFacadeWithEmailAndPassword(
-          _iAuthFacade.signInWithEmailAndPassword);
+        _iAuthFacade.signInWithEmailAndPassword,
+      );
     });
     on<SignInWithGooglePressed>((event, emit) async {
       emit(state.copyWith(

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:dartz/dartz.dart';
 import 'package:notes_firebase_ddd/domain/core/failures.dart';
 import 'package:notes_firebase_ddd/domain/core/value_object.dart';
