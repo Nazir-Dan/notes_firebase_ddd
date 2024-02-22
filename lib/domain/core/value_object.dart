@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:notes_firebase_ddd/domain/core/errors.dart';
 import 'package:notes_firebase_ddd/domain/core/failures.dart';
+import 'package:uuid/uuid.dart';
 
 @immutable
 abstract class ValueObject<T> {
@@ -28,4 +29,21 @@ abstract class ValueObject<T> {
 
   @override
   String toString() => 'Value($value)';
+}
+
+class UniqId extends ValueObject {
+  @override
+  final Either<ValueFailure, String> value;
+  factory UniqId() {
+    return UniqId._(
+      value: right(Uuid().v4()),
+    );
+  }
+  factory UniqId.fromUniqString(String uniqId) {
+    assert(uniqId != null);
+    return UniqId._(
+      value: right(uniqId),
+    );
+  }
+  const UniqId._({required this.value});
 }

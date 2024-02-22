@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:notes_firebase_ddd/presentation/sign_in/sign_in_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -8,12 +8,36 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      title: 'Workout Tracker',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light().copyWith(
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.green[800],
+          secondary: Colors.blueAccent,
+        ),
+        appBarTheme: ThemeData.light().appBarTheme.copyWith(
+              //brightness: Brightness.dark,
+              color: Colors.green[800],
+              iconTheme: ThemeData.dark().iconTheme,
+            ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.blue[900],
+          foregroundColor: Colors.white,
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: Colors.grey.shade700),
+          ),
+        ),
       ),
-      home: const HomePage(),
+      //onGenerateRoute: Router.onGenerateRoute,
+      //initialRoute: Router.splashPage,
+      //navigatorKey: Router.navigator.key,
+      home: const SignInPage(),
     );
   }
 }
