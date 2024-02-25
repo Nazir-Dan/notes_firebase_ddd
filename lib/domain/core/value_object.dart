@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:notes_firebase_ddd/domain/core/errors.dart';
 import 'package:notes_firebase_ddd/domain/core/failures.dart';
+import 'package:notes_firebase_ddd/domain/core/value_validarors.dart';
 import 'package:uuid/uuid.dart';
 
 @immutable
@@ -15,6 +16,13 @@ abstract class ValueObject<T> {
   T getOrCrash() {
     // id = identity - same as writing (right) => right
     return value.fold((f) => throw UnexpectedValueError(f), id);
+  }
+
+  Either<ValueFailure<dynamic>, Unit> get failureOrUnit {
+    return value.fold(
+      (l) => left(l),
+      (r) => right(unit),
+    );
   }
 
   @override
@@ -46,4 +54,18 @@ class UniqId extends ValueObject {
     );
   }
   const UniqId._({required this.value});
+}
+
+class StringSingleLine extends ValueObject<String> {
+  @override
+  final Either<ValueFailure<String>, String> value;
+
+  factory StringSingleLine(String input) {
+    assert(input != null);
+    return StringSingleLine._(
+      validateSingleLine(input),
+    );
+  }
+
+  const StringSingleLine._(this.value);
 }

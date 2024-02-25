@@ -2,9 +2,30 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'failures.freezed.dart';
 
 @freezed
-abstract class ValueFailure with _$ValueFailure {
-  const factory ValueFailure.invalidEmail({required String failedValue}) =
+abstract class ValueFailure<T> with _$ValueFailure {
+  const factory ValueFailure.invalidEmail({required T failedValue}) =
       InvalidEmail;
-  const factory ValueFailure.shortPassword({required String failedValue}) =
+  const factory ValueFailure.shortPassword({required T failedValue}) =
       ShortPassword;
+  const factory ValueFailure.exceedingLength({
+    required T failedValue,
+    required int max,
+  }) = ExceedingLength<T>;
+  const factory ValueFailure.empty({
+    required T failedValue,
+  }) = Empty<T>;
+  const factory ValueFailure.multiline({
+    required T failedValue,
+  }) = Multiline<T>;
+  const factory ValueFailure.numberTooLarge({
+    required T failedValue,
+    required num max,
+  }) = NumberTooLarge<T>;
+  const factory ValueFailure.listTooLong({
+    required T failedValue,
+    required int max,
+  }) = ListTooLong<T>;
+  const factory ValueFailure.invalidPhotoUrl({
+    required T failedValue,
+  }) = InvalidPhotoUrl<T>;
 }

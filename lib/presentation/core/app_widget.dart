@@ -1,43 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:notes_firebase_ddd/presentation/sign_in/sign_in_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_firebase_ddd/app/auth/auth_bloc_bloc.dart';
+import 'package:notes_firebase_ddd/injection.dart';
+import 'package:notes_firebase_ddd/presentation/routes/app_router.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
-
-  // This widget is the root of your application.
+  App({super.key});
+  final _appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Workout Tracker',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light().copyWith(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Colors.green[800],
-          secondary: Colors.blueAccent,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) =>
+              getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested()),
         ),
-        appBarTheme: ThemeData.light().appBarTheme.copyWith(
-              //brightness: Brightness.dark,
-              color: Colors.green[800],
-              iconTheme: ThemeData.dark().iconTheme,
-            ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: Colors.blue[900],
-          foregroundColor: Colors.white,
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+      ],
+      child: MaterialApp.router(
+        routerConfig: _appRouter.config(),
+        title: 'Workout Tracker',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.light().copyWith(
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: Colors.green[800],
+            secondary: Colors.blueAccent,
           ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Colors.grey.shade700),
+          appBarTheme: ThemeData.light().appBarTheme.copyWith(
+                //brightness: Brightness.dark,
+                color: Colors.green[800],
+                iconTheme: ThemeData.dark().iconTheme,
+              ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: Colors.blue[900],
+            foregroundColor: Colors.white,
+          ),
+          inputDecorationTheme: InputDecorationTheme(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: Colors.grey.shade700),
+            ),
           ),
         ),
       ),
-      //onGenerateRoute: Router.onGenerateRoute,
-      //initialRoute: Router.splashPage,
-      //navigatorKey: Router.navigator.key,
-      home: const SignInPage(),
     );
   }
 }
