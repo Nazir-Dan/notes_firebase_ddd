@@ -14,12 +14,18 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:google_sign_in/google_sign_in.dart' as _i6;
 import 'package:injectable/injectable.dart' as _i2;
 
-import 'app/auth/auth_bloc_bloc.dart' as _i10;
-import 'app/auth/sign_in_form/sign_in_form_bloc.dart' as _i9;
+import 'app/auth/auth_bloc_bloc.dart' as _i14;
+import 'app/auth/sign_in_form/sign_in_form_bloc.dart' as _i13;
+import 'app/notes/notes_actor/notes_actor_bloc.dart' as _i11;
+import 'app/notes/notes_watcher/notes_watcher_bloc.dart' as _i12;
 import 'domain/auth/i_auth_facade.dart' as _i7;
+import 'domain/notes/i_note_repository.dart' as _i9;
 import 'infrastructure/auth/firebase_auth_facade.dart' as _i8;
 import 'infrastructure/auth/firebase_user_mapper.dart' as _i5;
-import 'infrastructure/core/firebase_injectable_module.dart' as _i11;
+import 'infrastructure/core/firebase_injectable_module.dart' as _i15;
+import 'infrastructure/notes/notes_repository.dart' as _i10;
+
+const String _prod = 'prod';
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -45,11 +51,19 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i6.GoogleSignIn>(),
           gh<_i5.FirebaseUserMapper>(),
         ));
-    gh.factory<_i9.SignInFormBloc>(
-        () => _i9.SignInFormBloc(gh<_i7.IAuthFacade>()));
-    gh.factory<_i10.AuthBloc>(() => _i10.AuthBloc(gh<_i7.IAuthFacade>()));
+    gh.lazySingleton<_i9.INoteRepository>(
+      () => _i10.NoteRepository(),
+      registerFor: {_prod},
+    );
+    gh.factory<_i11.NoteActorBloc>(
+        () => _i11.NoteActorBloc(gh<_i9.INoteRepository>()));
+    gh.factory<_i12.NoteWatcherBloc>(
+        () => _i12.NoteWatcherBloc(gh<_i9.INoteRepository>()));
+    gh.factory<_i13.SignInFormBloc>(
+        () => _i13.SignInFormBloc(gh<_i7.IAuthFacade>()));
+    gh.factory<_i14.AuthBloc>(() => _i14.AuthBloc(gh<_i7.IAuthFacade>()));
     return this;
   }
 }
 
-class _$FirebaseInjectableModule extends _i11.FirebaseInjectableModule {}
+class _$FirebaseInjectableModule extends _i15.FirebaseInjectableModule {}
