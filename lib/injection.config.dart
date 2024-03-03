@@ -52,7 +52,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i5.FirebaseUserMapper>(),
         ));
     gh.lazySingleton<_i9.INoteRepository>(
-      () => _i10.NoteRepository(),
+      () => _i10.NoteRepository(gh<_i4.FirebaseFirestore>()),
       registerFor: {_prod},
     );
     gh.factory<_i11.NoteActorBloc>(
