@@ -31,7 +31,4 @@ class NoteActorBloc extends Bloc<NoteActorEvent, NoteActorState> {
       );
     });
   }
-
-  @override
-  NoteActorState get initialState => const NoteActorState.initial();
 }
