@@ -14,6 +14,7 @@ class NoteBody extends ValueObject<String> {
   static const maxLength = 1000;
 
   factory NoteBody(String input) {
+    // ignore: unnecessary_null_comparison
     assert(input != null);
     return NoteBody._(
       validateMaxStringLength(input, maxLength).flatMap(validateStringNotEmpty),
@@ -30,6 +31,7 @@ class TodoName extends ValueObject<String> {
   static const maxLength = 30;
 
   factory TodoName(String input) {
+    // ignore: unnecessary_null_comparison
     assert(input != null);
     return TodoName._(
       validateMaxStringLength(input, maxLength)
@@ -56,6 +58,7 @@ class NoteColor extends ValueObject<Color> {
   final Either<ValueFailure<Color>, Color> value;
 
   factory NoteColor(Color input) {
+    // ignore: unnecessary_null_comparison
     assert(input != null);
     return NoteColor._(
       right(makeColorOpaque(input)),
@@ -72,6 +75,7 @@ class List3<T> extends ValueObject<KtList<T>> {
   static const maxLength = 3;
 
   factory List3(KtList<T> input) {
+    // ignore: unnecessary_null_comparison
     assert(input != null);
     return List3._(
       validateMaxListLength(input, maxLength),

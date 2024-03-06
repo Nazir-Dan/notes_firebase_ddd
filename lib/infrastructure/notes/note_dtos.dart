@@ -7,7 +7,6 @@ import 'package:notes_firebase_ddd/domain/core/value_object.dart';
 import 'package:notes_firebase_ddd/domain/notes/note.dart';
 import 'package:notes_firebase_ddd/domain/notes/notes_value_objects.dart';
 import 'package:notes_firebase_ddd/domain/notes/todo_item.dart';
-import 'package:uuid/uuid.dart';
 
 part 'note_dtos.freezed.dart';
 part 'note_dtos.g.dart';
@@ -15,6 +14,7 @@ part 'note_dtos.g.dart';
 @freezed
 abstract class NoteDto with _$NoteDto {
   factory NoteDto({
+    // ignore: invalid_annotation_target
     @JsonKey(includeFromJson: false, includeToJson: false) String? id,
     required String body,
     required int color,

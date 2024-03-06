@@ -48,6 +48,7 @@ class UniqId extends ValueObject {
     );
   }
   factory UniqId.fromUniqString(String uniqId) {
+    // ignore: unnecessary_null_comparison
     assert(uniqId != null);
     return UniqId._(
       value: right(uniqId),
@@ -61,6 +62,7 @@ class StringSingleLine extends ValueObject<String> {
   final Either<ValueFailure<String>, String> value;
 
   factory StringSingleLine(String input) {
+    // ignore: unnecessary_null_comparison
     assert(input != null);
     return StringSingleLine._(
       validateSingleLine(input),

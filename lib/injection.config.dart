@@ -26,8 +26,6 @@ import 'infrastructure/auth/firebase_user_mapper.dart' as _i5;
 import 'infrastructure/core/firebase_injectable_module.dart' as _i16;
 import 'infrastructure/notes/notes_repository.dart' as _i10;
 
-const String _prod = 'prod';
-
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
   _i1.GetIt init({
@@ -53,9 +51,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i5.FirebaseUserMapper>(),
         ));
     gh.lazySingleton<_i9.INoteRepository>(
-      () => _i10.NoteRepository(gh<_i4.FirebaseFirestore>()),
-      registerFor: {_prod},
-    );
+        () => _i10.NoteRepository(gh<_i4.FirebaseFirestore>()));
     gh.factory<_i11.NoteActorBloc>(
         () => _i11.NoteActorBloc(gh<_i9.INoteRepository>()));
     gh.factory<_i12.NoteFormBloc>(

@@ -11,7 +11,6 @@ import 'package:notes_firebase_ddd/infrastructure/core/firestore_helpers.dart';
 import 'package:notes_firebase_ddd/infrastructure/notes/note_dtos.dart';
 import 'package:rxdart/rxdart.dart';
 
-@prod
 @LazySingleton(as: INoteRepository)
 class NoteRepository implements INoteRepository {
   final FirebaseFirestore _firestore;
@@ -42,7 +41,7 @@ class NoteRepository implements INoteRepository {
     try {
       final userDoc = await _firestore.userDocument();
       final noteDto = NoteDto.fromDomain(note);
-
+      
       await userDoc.noteCollection.doc(noteDto.id).update(noteDto.toJson());
 
       return right(unit);

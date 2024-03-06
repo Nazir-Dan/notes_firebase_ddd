@@ -1,7 +1,10 @@
 import 'package:another_flushbar/flushbar.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_firebase_ddd/app/auth/auth_bloc_bloc.dart';
 import 'package:notes_firebase_ddd/app/auth/sign_in_form/sign_in_form_bloc.dart';
+import 'package:notes_firebase_ddd/presentation/routes/app_router.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({super.key});
@@ -33,10 +36,10 @@ class SignInForm extends StatelessWidget {
                 ).show(context);
               },
               (_) {
-                // Router.navigator.pushReplacementNamed(Router.notesOverviewPage);
-                // context
-                //     .bloc<AuthBloc>()
-                //     .add(const AuthEvent.authCheckRequested());
+                context.router.replace(const NotesOverviewRoute());
+                context
+                    .read<AuthBloc>()
+                    .add(const AuthEvent.authCheckRequested());
               },
             );
           },

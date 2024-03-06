@@ -15,6 +15,22 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    NoteFormRoute.name: (routeData) {
+      final args = routeData.argsAs<NoteFormRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: NoteFormPage(
+          key: args.key,
+          editedNote: args.editedNote,
+        ),
+      );
+    },
+    NotesOverviewRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: NotesOverviewPage()),
+      );
+    },
     SignInRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -28,6 +44,58 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [NoteFormPage]
+class NoteFormRoute extends PageRouteInfo<NoteFormRouteArgs> {
+  NoteFormRoute({
+    Key? key,
+    required Note? editedNote,
+    List<PageRouteInfo>? children,
+  }) : super(
+          NoteFormRoute.name,
+          args: NoteFormRouteArgs(
+            key: key,
+            editedNote: editedNote,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'NoteFormRoute';
+
+  static const PageInfo<NoteFormRouteArgs> page =
+      PageInfo<NoteFormRouteArgs>(name);
+}
+
+class NoteFormRouteArgs {
+  const NoteFormRouteArgs({
+    this.key,
+    required this.editedNote,
+  });
+
+  final Key? key;
+
+  final Note? editedNote;
+
+  @override
+  String toString() {
+    return 'NoteFormRouteArgs{key: $key, editedNote: $editedNote}';
+  }
+}
+
+/// generated route for
+/// [NotesOverviewPage]
+class NotesOverviewRoute extends PageRouteInfo<void> {
+  const NotesOverviewRoute({List<PageRouteInfo>? children})
+      : super(
+          NotesOverviewRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NotesOverviewRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
